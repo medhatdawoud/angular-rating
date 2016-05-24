@@ -6,7 +6,8 @@
         bindings: {
             value: "<",
             max: "<",
-            size: "@"
+            size: "@",
+            color: "@"
         },
         transclude: true,
         controllerAs: "model",
@@ -14,12 +15,15 @@
             var model = this;
 
             if (!model.value) {
-                if(model.value !== 0)
+                if (model.value !== 0)
                     model.value = 1;
             }
-            
+
             if (!model.size)
                 model.size = '20px';
+
+            if (!model.color)
+                model.color = "#F3D82C";
 
             if (model.max == undefined) {
                 model.max = 5;
@@ -31,36 +35,37 @@
                     filled: i < model.value
                 });
             }
+
+
+            // the following is the insertion of styles into page onload
+            var rating = {
+                selector: 'rating',
+                rules: [
+                    'text-align: center',
+                    'display: block',
+                    'padding-bottom: 3px'
+                ]
+            }
+            var star = {
+                selector: '.star',
+                rules: [
+                    'font-size: 18px',
+                    'color: #ddd'
+                ]
+            }
+            var starOn = {
+                selector: '.star.star-on',
+                rules: [
+                    'color:' + model.color
+                ]
+            }
+
+            var ratingCSS = rating.selector + '{' + rating.rules.join(';') + '}';
+            var starCSS = star.selector + '{' + star.rules.join(';') + '}';
+            var starOnCSS = starOn.selector + '{' + starOn.rules.join(';') + '}';
+            angular.element(document).find('head').prepend('<style type="text/css">' + ratingCSS + starCSS + starOnCSS + '</style>');
+
         }
     });
-    
-    // the following is the insertion of styles into page onload
-    
-    var rating = {
-        selector: 'rating',
-        rules: [
-            'text-align: center',
-            'display: block',
-            'padding-bottom: 3px'
-        ]
-    }
-    var star = {
-        selector: '.star',
-        rules: [
-            'font-size: 18px',
-            'color: #ddd'
-        ]
-    }
-    var starOn = {
-        selector: '.star.star-on',
-        rules: [
-            'color: #F3D82C'
-        ]
-    }
-    
-    var ratingCSS = rating.selector + '{' + rating.rules.join(';') + '}';
-    var starCSS = star.selector + '{' + star.rules.join(';') + '}';
-    var starOnCSS = starOn.selector + '{' + starOn.rules.join(';') + '}';
-    angular.element(document).find('head').prepend('<style type="text/css">' + ratingCSS + starCSS + starOnCSS + '</style>');
 
 } ());
