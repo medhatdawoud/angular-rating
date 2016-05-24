@@ -27,11 +27,6 @@ Requirements
 Usage
 =====
 
-### Demo
-
-<a href="#">Demo here</a>.
-
-
 ### Setup
 
 Just include the js file to your html
