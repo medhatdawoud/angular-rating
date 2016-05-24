@@ -4,7 +4,7 @@
 
 ![Rating Yello](http://i.imgur.com/X90G6DY.jpg)
 
-![Rating Red](http://i.imgur.com/4G5KdHN.jpg)
+![Rating Red](http://i.imgur.com/Vfxs1D8.jpg)
 
 Current Version
 ---------------
