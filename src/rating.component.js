@@ -33,5 +33,34 @@
             }
         }
     });
+    
+    // the following is the insertion of styles into page onload
+    
+    var rating = {
+        selector: 'rating',
+        rules: [
+            'text-align: center',
+            'display: block',
+            'padding-bottom: 3px'
+        ]
+    }
+    var star = {
+        selector: '.star',
+        rules: [
+            'font-size: 18px',
+            'color: #ddd'
+        ]
+    }
+    var starOn = {
+        selector: '.star.star-on',
+        rules: [
+            'color: #F3D82C'
+        ]
+    }
+    
+    var ratingCSS = rating.selector + '{' + rating.rules.join(';') + '}';
+    var starCSS = star.selector + '{' + star.rules.join(';') + '}';
+    var starOnCSS = starOn.selector + '{' + starOn.rules.join(';') + '}';
+    angular.element(document).find('head').prepend('<style type="text/css">' + ratingCSS + starCSS + starOnCSS + '</style>');
 
 } ());
