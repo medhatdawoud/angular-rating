@@ -1,5 +1,11 @@
 # Angular Rating 
 
+> is a module to help you create a rating with some cusomizable options
+
+![Rating Yello](http://i.imgur.com/X90G6DY.jpg)
+
+![Rating Red](http://i.imgur.com/4G5KdHN.jpg)
+
 Current Version
 ---------------
 ```
@@ -67,8 +73,8 @@ foo = 4;
     <rating value="foo" size="30px"></rating>
     <rating value="foo" size="10em"></rating>
 ```
-- `color` is optional, this is the color of the filled stars, so you can choose a color of your choice if not it will be `#F3D82C`, 
-the color can be a litteral color or HEX color prefixed by `#` as default value.
+- `color` is optional, this is the color of the filled stars, so you can choose a color of your choice if not it will be `#F3D82C` as default value, 
+the color can be a litteral color or HEX color prefixed by `#`.
 ```html
     <rating value="foo" color="red"></rating>
     <rating value="foo" color="#333"></rating>
