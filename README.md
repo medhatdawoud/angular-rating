@@ -9,13 +9,13 @@
 Current Version
 ---------------
 ```
-0.0.1
+0.0.2
 ```
 
 Installation
 ------------
 ```
-bower install angular-rating
+bower install angular-rating --save
 ```
 
 Requirements
