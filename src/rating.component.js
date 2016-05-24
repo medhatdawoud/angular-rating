@@ -53,6 +53,12 @@
                     'color: #ddd'
                 ]
             }
+            var starOthers = {
+                selector: '.star+.star',
+                rules: [
+                    'margin-left: 3px'
+                ]
+            }
             var starOn = {
                 selector: '.star.star-on',
                 rules: [
@@ -62,8 +68,9 @@
 
             var ratingCSS = rating.selector + '{' + rating.rules.join(';') + '}';
             var starCSS = star.selector + '{' + star.rules.join(';') + '}';
+            var starOthersCSS = starOthers.selector + '{' + starOthers.rules.join(';') + '}';
             var starOnCSS = starOn.selector + '{' + starOn.rules.join(';') + '}';
-            angular.element(document).find('head').prepend('<style type="text/css">' + ratingCSS + starCSS + starOnCSS + '</style>');
+            angular.element(document).find('head').prepend('<style type="text/css">' + ratingCSS + starCSS + starOthersCSS + starOnCSS + '</style>');
 
         }
     });
