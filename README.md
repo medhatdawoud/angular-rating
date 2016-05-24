@@ -64,12 +64,15 @@ foo = 4;
 - `max` is optional and this is the whole number of stars you want to show at a time.
 - `size` is optional, this option is to provide the size of stars as you want to view them and also provide its unit as well (20px is the default in case it's not provided), just like:
 ```html
-    <rating value="foo" max="5" size="30px"></rating>
-    <rating value="foo" max="5" size="10em"></rating>
-    <rating value="foo" max="5" size="12rem"></rating>
+    <rating value="foo" size="30px"></rating>
+    <rating value="foo" size="10em"></rating>
 ```
-- `color` is optional, this is the color of the filled stars, so you can choose a color of your choice if not it will be `#F3D82C` as default value.
-
+- `color` is optional, this is the color of the filled stars, so you can choose a color of your choice if not it will be `#F3D82C`, 
+the color can be a litteral color or HEX color prefixed by `#` as default value.
+```html
+    <rating value="foo" color="red"></rating>
+    <rating value="foo" color="#333"></rating>
+```
 
 License
 =======
