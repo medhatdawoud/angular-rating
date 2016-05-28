@@ -2,12 +2,16 @@
     "use strict";
 
     angular.module("angular-rating", []).component("rating", {
-        template: "<span class=\"star glyphicon glyphicon-star\" ng-class=\"{'star-on':entry.filled}\" style=\"font-size:{{model.size}};\" ng-repeat=\"entry in model.stars track by $index\"></span>",
+        template: `<span class="star glyphicon glyphicon-star" ng-class="{'star-on':entry.filled}"                     
+                    ng-mouseover="model.fillStarHandler($index)"
+                    ng-mouseleave="model.unfillStarHandler($index)"
+                    style="font-size:{{model.size}};" ng-repeat="entry in model.stars track by $index"></span>`,
         bindings: {
             value: "<",
             max: "<",
             size: "@",
-            color: "@"
+            color: "@",
+            interactive: "@"
         },
         transclude: true,
         controllerAs: "model",
@@ -36,6 +40,39 @@
                 });
             }
 
+            model.fillStarHandler = function (starIndex) {
+                if (model.interactive.toLowerCase() == "true") {
+                    setValue(starIndex + 1);
+                    for (var i = starIndex; i >= 0; i--) {
+                        fillStar(i);
+                    }
+                    for (var i = starIndex + 1; i <= model.max - 1; i++) {
+                        UnfillStar(i);
+                    }
+                }
+            }
+
+            model.unfillStarHandler = function (starIndex) {
+                if (model.interactive.toLowerCase() == "true") {
+                    if (starIndex == 0) {
+                        UnfillStar(starIndex);
+                        // set value to 0 means no stars was selected.
+                        setValue(0);
+                    }
+                }
+            }
+
+            function fillStar(s) {
+                model.stars[s].filled = true;
+            }
+
+            function UnfillStar(s) {
+                model.stars[s].filled = false;
+            }
+
+            function setValue(val) {
+                model.value = val;
+            }
 
             // the following is the insertion of styles into page onload
             var rating = {
