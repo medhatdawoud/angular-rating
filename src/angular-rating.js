@@ -2,11 +2,13 @@
     "use strict";
 
     angular.module("angular-rating", []).component("rating", {
-        template: `<span class="star glyphicon glyphicon-star" ng-class="{'star-on':entry.filled, 'star-high':entry.highlighted}"                     
-                    ng-mouseover="model.fillStarHandler($index)"
-                    ng-mouseleave="model.unfillStarHandler($index)"
-                    ng-click="model.selectStar($index)"                    
-                    style="font-size:{{model.size}};" ng-repeat="entry in model.stars track by $index"></span>
+        template: `<span class="rating-container" ng-mouseleave="model.setRatingValue()">
+                        <span class="star glyphicon glyphicon-star" ng-class="{'star-on':entry.filled, 'star-high':entry.highlighted}"                     
+                        ng-mouseover="model.fillStarHandler($index)"
+                        ng-mouseleave="model.unfillStarHandler($index)"
+                        ng-click="model.selectStar($index)"                    
+                        style="font-size:{{model.size}};" ng-repeat="entry in model.stars track by $index"></span>
+                    </span>
                     <br />
                     <div>{{model.value}}</div>`,
         bindings: {
@@ -31,23 +33,22 @@
                 process: function (_type, _index) {
                     this.type = _type;
                     this.index = _index;
-                    if (this.type === 0) { //unfill
+                    if (this.type === 0) { //unhighlight
                         var _event = this;
-                        if (isDirty()) {                            
+                        if (isDirty()) {
                             return;
                         }
                         this.action = $timeout(function () {
                             if (_event.index == 0) {
-                                UnhighlightedStar(_event.index);                                
+                                UnhighlightedStar(_event.index);
                             }
                         }, 100);
                     } else if (this.type === 1) { // highlight
                         reset();
-                        
+
                         if (this.action) {
                             $timeout.cancel(this.action);
                         }
-
                         for (var i = this.index; i >= 0; i--) {
                             highlightedStar(i);
                         }
@@ -56,11 +57,9 @@
                         }
                         for (var i = 0; i < model.max; i++) {
                             UnfillStar(i);
-                        }                        
+                        }
                     } else if (this.type === 2) { // select
-
                         setValue(this.index + 1);
-
                         for (var i = this.index; i >= 0; i--) {
                             fillStar(i);
                         }
@@ -155,8 +154,25 @@
                 console.log('unhighlighted: ' + s);
             }
 
+            model.setRatingValue = function () {
+                for (var i = model.value - 1; i >= 0; i--) {
+                    fillStar(i);
+                }
+                for (var i = model.value + 1; i <= model.max - 1; i++) {
+                    UnfillStar(i);
+                }
+                for (var i = 0; i < model.max; i++) {
+                    UnhighlightedStar(i);
+                }
+            }
+
+            function setUserSelection(val) {
+                model.originalValue = val;
+            }
+
             function setValue(val) {
                 model.value = val;
+                model.originalValue = val;
             }
 
             // the following is the insertion of styles into page onload
