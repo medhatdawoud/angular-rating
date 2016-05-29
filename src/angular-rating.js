@@ -5,7 +5,10 @@
         template: `<span class="star glyphicon glyphicon-star" ng-class="{'star-on':entry.filled}"                     
                     ng-mouseover="model.fillStarHandler($index)"
                     ng-mouseleave="model.unfillStarHandler($index)"
-                    style="font-size:{{model.size}};" ng-repeat="entry in model.stars track by $index"></span>`,
+                    ng-click="model.selectStar($index)"                    
+                    style="font-size:{{model.size}};" ng-repeat="entry in model.stars track by $index"></span>
+                    <br />
+                    <div>{{model.value}}</div>`,
         bindings: {
             value: "<",
             max: "<",
@@ -15,8 +18,46 @@
         },
         transclude: true,
         controllerAs: "model",
-        controller: function () {
+        controller: function ($timeout) {
             var model = this;
+            model.originalValue = -1;
+            if(isInteractive()){
+                model.value=-1;
+            }
+            var eventQueue = {
+                type: '',
+                index: -1,
+                action: null,
+                process: function (_type, _index) {
+                    this.type = _type;
+                    this.index = _index;
+                    if (this.type === 0) { //unfill
+                        var _event = this;
+                        if (isDirty()) {
+                            console.log('isDirty, model.originalValue :' + model.originalValue + ', model.value :' + model.value);
+                            return;
+                        }
+                        this.action = $timeout(function () {
+                            if (_event.index == 0) {
+                                UnfillStar(_event.index);
+                                console.log('=================================================');
+                            }
+                        }, 100);
+                    } else if (this.type === 1) { // fill
+                        if (this.action) {
+                            $timeout.cancel(this.action);
+                        }
+
+                        for (var i = this.index; i >= 0; i--) {
+                            fillStar(i);
+                        }
+                        for (var i = this.index + 1; i <= model.max - 1; i++) {
+                            UnfillStar(i);
+                        }
+                        console.log('=================================================');
+                    }
+                }
+            };
 
             if (!model.value) {
                 if (model.value !== 0)
@@ -41,33 +82,37 @@
             }
 
             model.fillStarHandler = function (starIndex) {
-                if (model.interactive.toLowerCase() == "true") {
-                    setValue(starIndex + 1);
-                    for (var i = starIndex; i >= 0; i--) {
-                        fillStar(i);
-                    }
-                    for (var i = starIndex + 1; i <= model.max - 1; i++) {
-                        UnfillStar(i);
-                    }
+                if (isInteractive()) {
+                    eventQueue.process(1, starIndex);
                 }
             }
 
             model.unfillStarHandler = function (starIndex) {
-                if (model.interactive.toLowerCase() == "true") {
-                    if (starIndex == 0) {
-                        UnfillStar(starIndex);
-                        // set value to 0 means no stars was selected.
-                        setValue(0);
-                    }
+                if (isInteractive()) {
+                    eventQueue.process(0, starIndex);
                 }
+            }
+
+            model.selectStar = function (starIndex) {
+                setValue(starIndex + 1);
+            }
+
+            function isDirty() {
+                return model.originalValue !== model.value;
+            }
+
+            function isInteractive() {
+                return model.interactive.toLowerCase() == "true"
             }
 
             function fillStar(s) {
                 model.stars[s].filled = true;
+                console.log('fill: ' + s);
             }
 
             function UnfillStar(s) {
                 model.stars[s].filled = false;
+                console.log('unfill: ' + s);
             }
 
             function setValue(val) {
