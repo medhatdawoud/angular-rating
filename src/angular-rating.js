@@ -2,7 +2,7 @@
     "use strict";
 
     angular.module("angular-rating", []).component("rating", {
-        template: `<span class="star glyphicon glyphicon-star" ng-class="{'star-on':entry.filled}"                     
+        template: `<span class="star glyphicon glyphicon-star" ng-class="{'star-on':entry.filled, 'star-high':entry.highlighted}"                     
                     ng-mouseover="model.fillStarHandler($index)"
                     ng-mouseleave="model.unfillStarHandler($index)"
                     ng-click="model.selectStar($index)"                    
@@ -21,8 +21,8 @@
         controller: function ($timeout) {
             var model = this;
             model.originalValue = -1;
-            if(isInteractive()){
-                model.value=-1;
+            if (isInteractive()) {
+                model.value = -1;
             }
             var eventQueue = {
                 type: '',
@@ -33,20 +33,33 @@
                     this.index = _index;
                     if (this.type === 0) { //unfill
                         var _event = this;
-                        if (isDirty()) {
-                            console.log('isDirty, model.originalValue :' + model.originalValue + ', model.value :' + model.value);
+                        if (isDirty()) {                            
                             return;
                         }
                         this.action = $timeout(function () {
                             if (_event.index == 0) {
-                                UnfillStar(_event.index);
-                                console.log('=================================================');
+                                UnhighlightedStar(_event.index);                                
                             }
                         }, 100);
-                    } else if (this.type === 1) { // fill
+                    } else if (this.type === 1) { // highlight
+                        reset();
+                        
                         if (this.action) {
                             $timeout.cancel(this.action);
                         }
+
+                        for (var i = this.index; i >= 0; i--) {
+                            highlightedStar(i);
+                        }
+                        for (var i = this.index + 1; i <= model.max - 1; i++) {
+                            UnhighlightedStar(i);
+                        }
+                        for (var i = 0; i < model.max; i++) {
+                            UnfillStar(i);
+                        }                        
+                    } else if (this.type === 2) { // select
+
+                        setValue(this.index + 1);
 
                         for (var i = this.index; i >= 0; i--) {
                             fillStar(i);
@@ -54,7 +67,9 @@
                         for (var i = this.index + 1; i <= model.max - 1; i++) {
                             UnfillStar(i);
                         }
-                        console.log('=================================================');
+                        for (var i = 0; i < model.max; i++) {
+                            UnhighlightedStar(i);
+                        }
                     }
                 }
             };
@@ -68,7 +83,10 @@
                 model.size = '20px';
 
             if (!model.color)
-                model.color = "#F3D82C";
+                model.color = "#3DC31E";
+
+            if (!model.highColor)
+                model.highColor = "#F7EB90";
 
             if (model.max == undefined) {
                 model.max = 5;
@@ -94,7 +112,13 @@
             }
 
             model.selectStar = function (starIndex) {
-                setValue(starIndex + 1);
+                if (isInteractive()) {
+                    eventQueue.process(2, starIndex);
+                }
+            }
+
+            function reset() {
+                model.value = model.originalValue;
             }
 
             function isDirty() {
@@ -102,7 +126,13 @@
             }
 
             function isInteractive() {
-                return model.interactive.toLowerCase() == "true"
+                return model.interactive.toLowerCase() == "true";
+            }
+
+            function UnmarkStar(s) {
+                model.stars[s].filled = false;
+                model.stars[s].highlighted = false;
+                console.log('unmark: ' + s);
             }
 
             function fillStar(s) {
@@ -113,6 +143,16 @@
             function UnfillStar(s) {
                 model.stars[s].filled = false;
                 console.log('unfill: ' + s);
+            }
+
+            function highlightedStar(s) {
+                model.stars[s].highlighted = true;
+                console.log('highlighted: ' + s);
+            }
+
+            function UnhighlightedStar(s) {
+                model.stars[s].highlighted = false;
+                console.log('unhighlighted: ' + s);
             }
 
             function setValue(val) {
@@ -132,7 +172,8 @@
                 selector: '.star',
                 rules: [
                     'font-size: 18px',
-                    'color: #ddd'
+                    'color: #ddd',
+                    'cursor: pointer'
                 ]
             }
             var starOthers = {
@@ -147,12 +188,19 @@
                     'color:' + model.color
                 ]
             }
+            var starHigh = {
+                selector: '.star.star-high',
+                rules: [
+                    'color:' + model.highColor
+                ]
+            }
 
             var ratingCSS = rating.selector + '{' + rating.rules.join(';') + '}';
             var starCSS = star.selector + '{' + star.rules.join(';') + '}';
             var starOthersCSS = starOthers.selector + '{' + starOthers.rules.join(';') + '}';
             var starOnCSS = starOn.selector + '{' + starOn.rules.join(';') + '}';
-            angular.element(document).find('head').prepend('<style type="text/css">' + ratingCSS + starCSS + starOthersCSS + starOnCSS + '</style>');
+            var starHighCSS = starHigh.selector + '{' + starHigh.rules.join(';') + '}';
+            angular.element(document).find('head').prepend('<style type="text/css">' + ratingCSS + starCSS + starOthersCSS + starOnCSS + starHighCSS + '</style>');
 
         }
     });
