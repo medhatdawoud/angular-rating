@@ -122,7 +122,10 @@
             }
 
             function isInteractive() {
-                return model.interactive.toLowerCase() == "true";
+                if(model.interactive)
+                    return model.interactive.toLowerCase() == "true";
+                else
+                    return false;
             }
 
             function UnmarkStar(s) {
