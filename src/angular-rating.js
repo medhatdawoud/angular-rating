@@ -8,11 +8,9 @@
                         ng-mouseleave="model.unfillStarHandler($index)"
                         ng-click="model.selectStar($index)"                    
                         style="font-size:{{model.size}};" ng-repeat="entry in model.stars track by $index"></span>
-                    </span>
-                    <br />
-                    <div>{{model.value}}</div>`,
+                    </span>`,
         bindings: {
-            value: "<",
+            value: "=",
             max: "<",
             size: "@",
             color: "@",
@@ -22,10 +20,27 @@
         controllerAs: "model",
         controller: function ($timeout) {
             var model = this;
-            model.originalValue = -1;
-            if (isInteractive()) {
-                model.value = -1;
+            
+            model.originalValue = model.value;
+            
+            if (!model.value) {
+                if (model.value !== 0)
+                    model.value = 1;
             }
+
+            if (!model.size)
+                model.size = '20px';
+
+            if (!model.color)
+                model.color = "#F7EB90";
+
+            if (!model.highColor)
+                model.highColor = "#F7EB90";
+
+            if (model.max == undefined) {
+                model.max = 5;
+            }
+            
             var eventQueue = {
                 type: '',
                 index: -1,
@@ -73,24 +88,6 @@
                 }
             };
 
-            if (!model.value) {
-                if (model.value !== 0)
-                    model.value = 1;
-            }
-
-            if (!model.size)
-                model.size = '20px';
-
-            if (!model.color)
-                model.color = "#3DC31E";
-
-            if (!model.highColor)
-                model.highColor = "#F7EB90";
-
-            if (model.max == undefined) {
-                model.max = 5;
-            }
-
             model.stars = [];
             for (var i = 0; i < model.max; i++) {
                 model.stars.push({
@@ -131,27 +128,22 @@
             function UnmarkStar(s) {
                 model.stars[s].filled = false;
                 model.stars[s].highlighted = false;
-                console.log('unmark: ' + s);
             }
 
             function fillStar(s) {
                 model.stars[s].filled = true;
-                console.log('fill: ' + s);
             }
 
             function UnfillStar(s) {
                 model.stars[s].filled = false;
-                console.log('unfill: ' + s);
             }
 
             function highlightedStar(s) {
                 model.stars[s].highlighted = true;
-                console.log('highlighted: ' + s);
             }
 
             function UnhighlightedStar(s) {
                 model.stars[s].highlighted = false;
-                console.log('unhighlighted: ' + s);
             }
 
             model.setRatingValue = function () {
