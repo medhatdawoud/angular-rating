@@ -1,11 +1,11 @@
 (function () {
     "use strict";
 
-
     var app = angular.module('testRating', ['angular-rating']);
 
     app.controller('ItemController', ['$scope', function ($scope) {
-        $scope.items = [
+         $scope.value = 2;
+          $scope.items = [
             {
                 name: 'Item A',
                 rate: 5
@@ -20,5 +20,6 @@
             }
         ];
     }]);
+    
 
 })();

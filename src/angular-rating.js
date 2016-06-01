@@ -20,10 +20,32 @@
         controllerAs: "model",
         controller: function ($timeout, $scope) {
             var model = this;
+
             model.userSelectedValue = -1;
             if (isInteractive()) {
                 model.value = -1;
             }
+
+            if (!model.value) {
+                if (model.value !== 0)
+                    model.value = 1;
+            }
+
+            if (!model.size)
+                model.size = '20px';
+
+            if (!model.color)
+                model.color = "#F7EB90";
+
+            if (!model.highColor)
+                model.highColor = "#F7EB90";
+
+            if (model.max == undefined) {
+                model.max = 5;
+            }
+
+            model.stars = drawStars(model.value, model.max);
+
             var eventQueue = {
                 type: '',
                 index: -1,
@@ -59,7 +81,7 @@
                     }
                     else if (this.type === 'click') { // select: click on star
                         setValue(this.index + 1);
-                        
+
                         for (var i = this.index; i >= 0; i--) {
                             fillStar(i);
                         }
@@ -72,24 +94,6 @@
                     }
                 }
             };
-
-            // Init
-            if (!model.value) {
-                if (model.value !== 0)
-                    model.value = 1;
-            }
-            if (!model.size) {
-                model.size = '20px';
-            }
-            if (!model.color) {
-                model.color = "#3DC31E";
-            }
-            if (!model.highColor) {
-                model.highColor = "#F7EB90";
-            }
-            if (model.max == undefined) {
-                model.max = 5;
-            }
 
             $scope.$watch('model.value', function () {
                 model.stars = drawStars(model.value, model.max);
@@ -172,6 +176,18 @@
 
             function UnhighlightedStar(s) {
                 model.stars[s].highlighted = false;
+            }
+
+            model.setRatingValue = function () {
+                for (var i = model.value - 1; i >= 0; i--) {
+                    fillStar(i);
+                }
+                for (var i = model.value + 1; i <= model.max - 1; i++) {
+                    UnfillStar(i);
+                }
+                for (var i = 0; i < model.max; i++) {
+                    UnhighlightedStar(i);
+                }
             }
 
             function setUserSelection(val) {
