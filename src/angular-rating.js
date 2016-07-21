@@ -18,7 +18,7 @@
         },
         transclude: true,
         controllerAs: "model",
-        controller: function ($timeout, $scope) {
+        controller: ["$timeout" ,"$scope" ,function ($timeout, $scope) {
             var model = this;
 
             model.userSelectedValue = -1;
@@ -242,7 +242,7 @@
             var starHighCSS = starHigh.selector + '{' + starHigh.rules.join(';') + '}';
             angular.element(document).find('head').prepend('<style type="text/css">' + ratingCSS + starCSS + starOthersCSS + starOnCSS + starHighCSS + '</style>');
 
-        }
+        }]
     });
 
 } ());
