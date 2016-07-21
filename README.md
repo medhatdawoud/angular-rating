@@ -9,13 +9,17 @@
 Current Version
 ---------------
 ```
-0.0.2
+3.0.0
 ```
 
 Installation
 ------------
 ```
 bower install angular-rating --save
+```
+OR
+```
+npm install angular-rating --save
 ```
 
 Requirements
@@ -74,6 +78,7 @@ the color can be a litteral color or HEX color prefixed by `#`.
     <rating value="foo" color="red"></rating>
     <rating value="foo" color="#333"></rating>
 ```
+- `interactive` is optional, by default it's `true`, that means you can change the rating but if you assign it to `false` the rating will be disabled.
 
 License
 =======
@@ -83,4 +88,5 @@ MIT
 Authors
 =======
 
-Medhat Dawoud (@med7atdawoud)
+- Medhat Dawoud (@med7atdawoud)
+- Peter Sobhy
