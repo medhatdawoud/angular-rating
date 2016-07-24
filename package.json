@@ -1,6 +1,6 @@
 {
   "name": "angular-rating",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A simple component for star ratng in Angular 1.5",
   "main": "src/angular-rating.js",
   "directories": {
