@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Angular-rating by medhatdawoud</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Angular-rating</h1>
+      <h2 class="project-tagline">angular-rating is a module to help you create a rating with some cusomizable options</h2>
+      <a href="https://github.com/medhatdawoud/angular-rating" class="btn">View on GitHub</a>
+      <a href="https://github.com/medhatdawoud/angular-rating/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/medhatdawoud/angular-rating/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="angular-rating" class="anchor" href="#angular-rating" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Angular Rating</h1>
+
+<blockquote>
+<p>is a module to help you create a rating with some cusomizable options</p>
+</blockquote>
+
+<p><img src="http://i.imgur.com/X90G6DY.jpg" alt="Rating Yello"></p>
+
+<p><img src="http://i.imgur.com/Vfxs1D8.jpg" alt="Rating Red"></p>
+
+<h2>
+<a id="current-version" class="anchor" href="#current-version" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Current Version</h2>
+
+<pre><code>3.0.2
+</code></pre>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<pre><code>bower install angular-rating --save
+</code></pre>
+
+<p>OR</p>
+
+<pre><code>npm install angular-rating --save
+</code></pre>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li>
+<a href="http://angularjs.org">AngularJS</a> Version 1.5 at least</li>
+<li>
+<a href="http://getbootstrap.com">Bootstrap CSS</a> </li>
+</ul>
+
+<h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h1>
+
+<h3>
+<a id="setup" class="anchor" href="#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h3>
+
+<p>Just include the js file to your html</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>/path/to/angular-rating.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<p>Then, include the module in your code:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>myModule<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>angular-rating<span class="pl-pds">'</span></span>];</pre></div>
+
+<h3>
+<a id="directive" class="anchor" href="#directive" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Directive</h3>
+
+<p>This is a component, so at its most basic:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">rating</span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span> <span class="pl-e">max</span>=<span class="pl-s"><span class="pl-pds">"</span>5<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">rating</span>&gt;</pre></div>
+
+<p>This will render the rating contained in <code>foo</code> with maximum 5 stars, and 5 is the default if you don't provide max attribute.</p>
+
+<p><code>foo</code> should be an Integar:</p>
+
+<div class="highlight highlight-source-js"><pre>foo <span class="pl-k">=</span> <span class="pl-c1">1</span>;
+foo <span class="pl-k">=</span> <span class="pl-c1">3</span>;
+foo <span class="pl-k">=</span> <span class="pl-c1">4</span>;</pre></div>
+
+<h3>
+<a id="attributes" class="anchor" href="#attributes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Attributes</h3>
+
+<ul>
+<li>
+<code>value</code> is the only required attribute that should contain Integar as I mentioned above.</li>
+<li>
+<code>max</code> is optional and this is the whole number of stars you want to show at a time.</li>
+<li>
+<code>size</code> is optional, this option is to provide the size of stars as you want to view them and also provide its unit as well (20px is the default in case it's not provided), just like:</li>
+</ul>
+
+<div class="highlight highlight-text-html-basic"><pre>    &lt;<span class="pl-ent">rating</span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>30px<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">rating</span>&gt;
+    &lt;<span class="pl-ent">rating</span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>10em<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">rating</span>&gt;</pre></div>
+
+<ul>
+<li>
+<code>color</code> is optional, this is the color of the filled stars, so you can choose a color of your choice if not it will be <code>#F3D82C</code> as default value, 
+the color can be a litteral color or HEX color prefixed by <code>#</code>.</li>
+</ul>
+
+<div class="highlight highlight-text-html-basic"><pre>    &lt;<span class="pl-ent">rating</span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span> <span class="pl-e">color</span>=<span class="pl-s"><span class="pl-pds">"</span>red<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">rating</span>&gt;
+    &lt;<span class="pl-ent">rating</span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span> <span class="pl-e">color</span>=<span class="pl-s"><span class="pl-pds">"</span>#333<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">rating</span>&gt;</pre></div>
+
+<ul>
+<li>
+<code>interactive</code> is optional, by default it's <code>true</code>, that means you can change the rating but if you assign it to <code>false</code> the rating will be disabled.</li>
+</ul>
+
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h1>
+
+<p>MIT</p>
+
+<h1>
+<a id="authors" class="anchor" href="#authors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors</h1>
+
+<ul>
+<li>Medhat Dawoud (@med7atdawoud)</li>
+<li>Peter Sobhy</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/medhatdawoud/angular-rating">Angular-rating</a> is maintained by <a href="https://github.com/medhatdawoud">medhatdawoud</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
