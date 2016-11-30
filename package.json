@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/medhatdawoud/angular-rating/issues"
   },
-  "homepage": "https://github.com/medhatdawoud/angular-rating#readme"
+  "homepage": "https://github.com/medhatdawoud/angular-rating#readme",
+  "dependencies": {
+    "angular": "^1.5.9",
+    "bootstrap": "^3.3.7"
+  }
 }
