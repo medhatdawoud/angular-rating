@@ -14,6 +14,7 @@
             max: "<",
             size: "@",
             color: "@",
+            align: "@",
             interactive: "@"
         },
         transclude: true,
@@ -203,7 +204,7 @@
             var rating = {
                 selector: 'rating',
                 rules: [
-                    'text-align: center',
+                    'text-align: ' + (model.align || 'center') ,
                     'display: block',
                     'padding-bottom: 3px'
                 ]
