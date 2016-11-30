@@ -2,14 +2,12 @@
 
 > is a module to help you create a rating with some cusomizable options
 
-![Rating Yello](http://i.imgur.com/X90G6DY.jpg)
-
-![Rating Red](http://i.imgur.com/Vfxs1D8.jpg)
+![Rating Example](http://i.imgur.com/IRdJuov.jpg)
 
 Current Version
 ---------------
 ```
-3.0.2
+3.1.2
 ```
 
 Installation
