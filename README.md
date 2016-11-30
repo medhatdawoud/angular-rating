@@ -7,7 +7,7 @@
 Current Version
 ---------------
 ```
-4.0.0-rc.1
+3.0.3
 ```
 
 Installation
