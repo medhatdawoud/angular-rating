@@ -7,7 +7,7 @@
 Current Version
 ---------------
 ```
-3.1.2
+3.1.0
 ```
 
 Installation
